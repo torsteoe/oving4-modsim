@@ -20,18 +20,18 @@ p = [x*cos(theta); x*sin(theta)];
 % Kinetic energy
 T = 1/2*J*(theta)^2; % kinetic energy of beam
 
-dp = jacobian(p,q);
-T  = T + dp*dq; % add linear kinetic energy of ball
+dp = jacobian(p,q)';
+T  = T + 1/2*M*(dp*dq)'*(dp*dq); % add linear kinetic energy of ball
 
 I     = 2/5*M*R^2; % inertia in rotation of ball
 omega = dx/R+dtheta; % angular velocity of ball
 
-T  = T + 1/2*I*omega^2 + 1/2*m*dp.'*dp; % add rotational kinetic energy of ball
+T  = T + 1/2*I*omega^2; % add rotational kinetic energy of ball
 
 T = simplify(T);
 
 % Potential energy
-V = p(2)*g*m;
+V = p(2)*g*M;
 
 % Generalized forces
 Q = [0;To]; % usikker
